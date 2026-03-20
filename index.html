@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUAFLOW | Control Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="scanline"></div>
+    
+    <nav class="system-nav">
+        <div class="nav-brand">AQUAFLOW_OS</div>
+        <div class="nav-links">
+            <a href="#" onclick="switchModule('module-home')" class="active">HOME</a>
+            <a href="#" onclick="switchModule('module-philosophy')">PHILOSOPHY</a>
+            <a href="#" onclick="switchModule('module-plan')">PLAN</a>
+            <a href="#" onclick="switchModule('module-archive')">ARCHIVE</a>
+            <a href="#" onclick="showModal('modal-access')">ACCESS_JOIN</a>
+        </div>
+    </nav>
+
+    <main id="app-container">
+        <!-- Home Module -->
+        <section id="module-home" class="module active">
+            <header>
+                <div class="status-bar">
+                    <span>NODE: BEIJING_01</span>
+                    <span id="system-time">LOADING_TIME...</span>
+                </div>
+                <h1>AQUAFLOW <span class="version">v1.1.0</span></h1>
+            </header>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>SYSTEM_SUMMARY</h3>
+                    <p>Aquaflow 是一个基于“心流”与“城市接口”理论的补给运行系统。不摆拍、不干预、去个人化。</p>
+                </div>
+                <div class="card clickable" onclick="switchModule('module-plan')">
+                    <h3>NEXT_RUN</h3>
+                    <p>地点：天通苑东站 B 口<br>负载：24 Unit / 人<br>状态：READY</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Philosophy Module -->
+        <section id="module-philosophy" class="module">
+            <h2>01_PHILOSOPHY / 核心理念</h2>
+            <div class="content-text">
+                <div class="node-block">
+                    <h3>FLOW [心流/流向]</h3>
+                    <p>系统运行中，Flow 是水与数据的流向。心理学中，Flow 是沉浸的极致。我们通过物理补给的流动，完成城市心流的接入。</p>
+                </div>
+                <div class="node-block">
+                    <h3>ADDITION [加法原则]</h3>
+                    <p>Plogging 是减法，Aquaflow 是加法。与其清理城市的废弃，不如为城市的建设者注入运行动力。</p>
+                </div>
+                <div class="node-block">
+                    <h3>ELASTICITY [系统弹性]</h3>
+                    <p>拒绝道德绑架。系统允许随时 Sleep Mode（休眠）。每一次运行都是基于开发者自发的心流驱动。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plan Module -->
+        <section id="module-plan" class="module">
+            <h2>02_PLANNING / 运行计划</h2>
+            <div class="plan-details">
+                <div class="plan-item">
+                    <span class="label">TIMESTAMP</span>
+                    <span class="value">2026.03.21 14:00 (UTC+8)</span>
+                </div>
+                <div class="plan-item">
+                    <span class="label">START_NODE</span>
+                    <span class="value">地铁 17 号线天通苑东站 B 口</span>
+                </div>
+                <div class="plan-item">
+                    <span class="label">TARGET_ZONE</span>
+                    <span class="value">温榆河河堤工地 / 待建区盲点</span>
+                </div>
+                <div class="plan-item">
+                    <span class="label">UNIT_LOAD</span>
+                    <span class="value">24 Bottles (555ml) / Person</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Archive Module -->
+        <section id="module-archive" class="module">
+            <h2>03_ARCHIVE / 运行日志与展示</h2>
+            <div class="photo-grid">
+                <!-- 占位图，后续替换为真实路径 -->
+                <div class="photo-card">
+                    <div class="img-placeholder">LOG_20260315_IMG</div>
+                    <p>往期计划：天通苑-回龙观链路运行</p>
+                </div>
+                <div class="photo-card">
+                    <div class="img-placeholder">VOLUNTEER_01</div>
+                    <p>志愿者风采：Node_01 接入测试</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal: Registration & Feedback -->
+    <div id="modal-access" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal-access')">&times;</span>
+            <h2>ACCESS_FORM / 接入与建议</h2>
+            <p style="font-size: 0.8rem; color: #555; margin-bottom: 1rem;">提交后，信息将同步至开发者 Gmail。</p>
+            
+            <!-- 使用 Formspree 接收邮件 -->
+            <form action="https://formspree.io/f/xvgzbgkg" method="POST">
+                <div class="form-group">
+                    <label>TYPE</label>
+                    <select name="type">
+                        <option value="volunteer">志愿者登记</option>
+                        <option value="suggestion">系统改进建议</option>
+                        <option value="report">运行日志同步</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>CONTACT (WeChat/Email)</label>
+                    <input type="text" name="contact" required placeholder="如何称呼您及联系方式">
+                </div>
+                <div class="form-group">
+                    <label>MESSAGE / DATA</label>
+                    <textarea name="message" rows="5" placeholder="请输入您的建议或个人介绍..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">EXECUTE_SUBMIT</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
