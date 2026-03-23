@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" fill="none">
+  <rect width="1200" height="700" rx="36" fill="#F6F8FF"/>
+  <rect x="60" y="60" width="1080" height="580" rx="28" fill="#FFFFFF" stroke="#DDE4FF" stroke-width="4"/>
+  <path d="M210 470C340 410 440 320 620 300C760 285 860 220 980 170" stroke="#6C7BFF" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="210" cy="470" r="26" fill="#6C7BFF"/>
+  <circle cx="620" cy="300" r="26" fill="#2F80ED"/>
+  <circle cx="980" cy="170" r="26" fill="#27AE60"/>
+  <text x="170" y="530" fill="#183B56" font-size="34" font-family="Arial, sans-serif">夜间入口</text>
+  <text x="540" y="255" fill="#183B56" font-size="34" font-family="Arial, sans-serif">观察点</text>
+  <text x="880" y="130" fill="#183B56" font-size="34" font-family="Arial, sans-serif">照明较弱区域</text>
+</svg>
