@@ -8,27 +8,26 @@
 </head>
 <body>
     <div class="scanline"></div>
-    
+
     <nav class="system-nav">
         <div class="nav-brand">AQUAFLOW_OS</div>
         <div class="nav-links">
             <a href="#" onclick="switchModule('module-home')" class="active">HOME</a>
             <a href="#" onclick="switchModule('module-philosophy')">PHILOSOPHY</a>
             <a href="#" onclick="switchModule('module-plan')">PLAN</a>
-            <a href="#" onclick="switchModule('module-archive')">ARCHIVE</a>
+            <a href="#" onclick="switchModule('module-record')">RECORD</a>
             <a href="#" onclick="showModal('modal-access')">ACCESS_JOIN</a>
         </div>
     </nav>
 
     <main id="app-container">
-        <!-- Home Module -->
         <section id="module-home" class="module active">
             <header>
                 <div class="status-bar">
                     <span>NODE: BEIJING_01</span>
                     <span id="system-time">LOADING_TIME...</span>
                 </div>
-                <h1>AQUAFLOW <span class="version">v1.1.0</span></h1>
+                <h1>AQUAFLOW <span class="version">v1.2.0</span></h1>
             </header>
             <div class="dashboard-grid">
                 <div class="card">
@@ -37,12 +36,15 @@
                 </div>
                 <div class="card clickable" onclick="switchModule('module-plan')">
                     <h3>NEXT_RUN</h3>
-                    <p>地点：天通苑东站 B 口<br>负载：24 Unit / 人<br>状态：READY</p>
+                    <p>计划内容已从页面硬编码迁移到 <code>content/plans/</code>，新增 Markdown 即可刷新列表。</p>
+                </div>
+                <div class="card clickable" onclick="switchModule('module-record')">
+                    <h3>LATEST_RECORD</h3>
+                    <p>运行记录独立展示在 <code>RECORD</code> 模块，内容来自 <code>content/records/</code>。</p>
                 </div>
             </div>
         </section>
 
-        <!-- Philosophy Module -->
         <section id="module-philosophy" class="module">
             <h2>01_PHILOSOPHY / 核心理念</h2>
             <div class="content-text">
@@ -61,54 +63,49 @@
             </div>
         </section>
 
-        <!-- Plan Module -->
         <section id="module-plan" class="module">
             <h2>02_PLANNING / 运行计划</h2>
-            <div class="plan-details">
-                <div class="plan-item">
-                    <span class="label">TIMESTAMP</span>
-                    <span class="value">2026.03.21 14:00 (UTC+8)</span>
-                </div>
-                <div class="plan-item">
-                    <span class="label">START_NODE</span>
-                    <span class="value">地铁 17 号线天通苑东站 B 口</span>
-                </div>
-                <div class="plan-item">
-                    <span class="label">TARGET_ZONE</span>
-                    <span class="value">温榆河河堤工地 / 待建区盲点</span>
-                </div>
-                <div class="plan-item">
-                    <span class="label">UNIT_LOAD</span>
-                    <span class="value">24 Bottles (555ml) / Person</span>
-                </div>
+            <div class="content-shell">
+                <aside class="content-sidebar">
+                    <div class="content-meta">
+                        <span class="content-count" id="plans-count">SYNCING...</span>
+                        <p>维护方式：在 <code>content/plans/</code> 中新增或修改 Markdown 文档。</p>
+                    </div>
+                    <div id="plans-list" class="content-list" aria-live="polite">
+                        <div class="content-empty">SYNCING_PLAN_INDEX...</div>
+                    </div>
+                </aside>
+                <article class="content-detail">
+                    <div id="plans-detail" class="detail-panel detail-loading">SYNCING_PLAN_DATA...</div>
+                </article>
             </div>
         </section>
 
-        <!-- Archive Module -->
-        <section id="module-archive" class="module">
-            <h2>03_ARCHIVE / 运行日志与展示</h2>
-            <div class="photo-grid">
-                <!-- 占位图，后续替换为真实路径 -->
-                <div class="photo-card">
-                    <div class="img-placeholder">LOG_20260315_IMG</div>
-                    <p>往期计划：天通苑-回龙观链路运行</p>
-                </div>
-                <div class="photo-card">
-                    <div class="img-placeholder">VOLUNTEER_01</div>
-                    <p>志愿者风采：Node_01 接入测试</p>
-                </div>
+        <section id="module-record" class="module">
+            <h2>03_RECORDS / 运行记录</h2>
+            <div class="content-shell">
+                <aside class="content-sidebar">
+                    <div class="content-meta">
+                        <span class="content-count" id="records-count">SYNCING...</span>
+                        <p>维护方式：在 <code>content/records/</code> 中新增或修改 Markdown 文档。</p>
+                    </div>
+                    <div id="records-list" class="content-list" aria-live="polite">
+                        <div class="content-empty">SYNCING_RECORD_INDEX...</div>
+                    </div>
+                </aside>
+                <article class="content-detail">
+                    <div id="records-detail" class="detail-panel detail-loading">SYNCING_RECORD_DATA...</div>
+                </article>
             </div>
         </section>
     </main>
 
-    <!-- Modal: Registration & Feedback -->
     <div id="modal-access" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('modal-access')">&times;</span>
             <h2>ACCESS_FORM / 接入与建议</h2>
             <p style="font-size: 0.8rem; color: #555; margin-bottom: 1rem;">提交后，信息将同步至开发者 Gmail。</p>
-            
-            <!-- 使用 Formspree 接收邮件 -->
+
             <form action="https://formspree.io/f/xbdzvavv" method="POST">
                 <div class="form-group">
                     <label>TYPE</label>
@@ -128,15 +125,12 @@
                 </div>
                 <button type="submit" class="submit-btn">EXECUTE_SUBMIT</button>
             </form>
-            <div style="margin-top: 2rem; padding-top: 1rem; border-top:
-            1px dashed #ccc; text-align: center;">
-                            <p style="font-size: 0.75rem; color: #666; margin-bottom:
-            0.5rem;">ALTERNATIVE_CONTACT / 备选联系方式</p>
-                            <p style="font-size: 1rem; letter-spacing: 1px; color:
-            #999; font-weight: bold;">WECHAT: 15210187668</p>
-                            <p style="font-size: 0.7rem; color:
-            #999;">(若提交失败，请直接添加微信联系)</p>
-                 </div>
+            <div class="contact-panel">
+                <p class="contact-panel-title">ALTERNATIVE_CONTACT / 备选联系方式</p>
+                <p class="contact-panel-id">WECHAT: 15210187668</p>
+                <img src="assets/images/WXDi.jpg" alt="Aquaflow 微信联系方式" class="contact-qr-image">
+                <p class="contact-panel-tip">(若提交失败，请直接添加微信联系)</p>
+            </div>
         </div>
     </div>
 
