@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" fill="none">
+  <rect width="1200" height="700" rx="36" fill="#F5FBFF"/>
+  <rect x="60" y="60" width="1080" height="580" rx="28" fill="#FFFFFF" stroke="#D6ECFF" stroke-width="4"/>
+  <!-- 路线曲线：新发地 → 补给节点 → 南苑湿地草坪 → 和义站 -->
+  <path d="M160 500C260 420 340 390 500 370C660 350 760 300 900 270C1000 250 1060 290 1040 340" stroke="#2F80ED" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 新发地站 A 口（起点，橙色） -->
+  <circle cx="160" cy="500" r="26" fill="#FFB74D"/>
+  <!-- 补给节点（蓝色） -->
+  <circle cx="500" cy="370" r="22" fill="#2F80ED"/>
+  <!-- 南苑湿地草坪（绿色） -->
+  <circle cx="900" cy="270" r="26" fill="#27AE60"/>
+  <!-- 和义站（终点，紫色） -->
+  <circle cx="1040" cy="340" r="22" fill="#9B59B6"/>
+  <!-- 标注文字 -->
+  <text x="90" y="560" fill="#183B56" font-size="32" font-family="Arial, sans-serif">新发地站 A 口</text>
+  <text x="90" y="598" fill="#888" font-size="24" font-family="Arial, sans-serif">14:00 集合 · 采购补给</text>
+  <text x="430" y="340" fill="#183B56" font-size="32" font-family="Arial, sans-serif">补给节点</text>
+  <text x="430" y="376" fill="#888" font-size="24" font-family="Arial, sans-serif">随机分享 · 沿途工地</text>
+  <text x="820" y="238" fill="#183B56" font-size="32" font-family="Arial, sans-serif">南苑湿地草坪</text>
+  <text x="820" y="274" fill="#888" font-size="24" font-family="Arial, sans-serif">15:30 · 桌游 · 飞盘</text>
+  <text x="960" y="400" fill="#183B56" font-size="32" font-family="Arial, sans-serif">和义站</text>
+  <text x="960" y="436" fill="#888" font-size="24" font-family="Arial, sans-serif">17:00 收官</text>
+</svg>
