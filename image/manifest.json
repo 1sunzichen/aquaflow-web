@@ -1,0 +1,14 @@
+{
+  "images": [
+    {
+      "file": "image/photo1.jpg",
+      "title": "示例图片 1",
+      "caption": "在这里填写图片说明"
+    },
+    {
+      "file": "image/photo2.jpg",
+      "title": "示例图片 2",
+      "caption": "在这里填写图片说明"
+    }
+  ]
+}

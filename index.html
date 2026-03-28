@@ -17,6 +17,7 @@
             <a href="#" onclick="switchModule('module-philosophy')">理念</a>
             <a href="#" onclick="switchModule('module-plan')">计划</a>
             <a href="#" onclick="switchModule('module-record')">记录</a>
+            <a href="#" onclick="switchModule('module-volunteers')">志愿者</a>
             <a href="#" onclick="showModal('modal-access')">联系</a>
         </div>
     </nav>
@@ -44,6 +45,21 @@
                     </div>
                 </div>
             </header>
+
+            <section class="carousel-section" id="carousel-section" style="display:none">
+                <div class="carousel-stage">
+                    <button class="carousel-arrow carousel-prev" type="button" onclick="carouselPrev()" aria-label="上一张">&#8249;</button>
+                    <div class="carousel-frame">
+                        <img id="carousel-main-img" src="" alt="" class="carousel-main-image">
+                        <div class="carousel-overlay">
+                            <p class="carousel-title" id="carousel-title"></p>
+                            <p class="carousel-caption" id="carousel-caption"></p>
+                        </div>
+                    </div>
+                    <button class="carousel-arrow carousel-next" type="button" onclick="carouselNext()" aria-label="下一张">&#8250;</button>
+                </div>
+                <div class="carousel-menu" id="carousel-menu"></div>
+            </section>
 
             <section class="summary-grid">
                 <article class="summary-card">
@@ -103,6 +119,16 @@
             </div>
         </section>
 
+        <section id="module-volunteers" class="module">
+            <div class="section-heading">
+                <p class="eyebrow">志愿者风采</p>
+                <h2>每一位走进现场的人，都是补给行动真正的样子。</h2>
+            </div>
+            <div id="volunteer-gallery" class="volunteer-masonry">
+                <div class="content-empty">正在加载图片...</div>
+            </div>
+        </section>
+
         <section id="module-record" class="module">
             <div class="section-heading">
                 <p class="eyebrow">行动记录</p>
@@ -124,6 +150,17 @@
             </div>
         </section>
     </main>
+
+    <div id="modal-photo" class="modal photo-modal" onclick="closeModal('modal-photo')">
+        <div class="photo-modal-inner">
+            <span class="close photo-close" onclick="closeModal('modal-photo')">&times;</span>
+            <img id="photo-modal-img" src="" alt="" class="photo-modal-img">
+            <div class="photo-modal-caption">
+                <p class="photo-modal-title" id="photo-modal-title"></p>
+                <p class="photo-modal-sub" id="photo-modal-sub"></p>
+            </div>
+        </div>
+    </div>
 
     <div id="modal-access" class="modal">
         <div class="modal-content">

@@ -53,7 +53,8 @@ function switchModule(moduleId) {
 
 function showModal(modalId) {
     const modal = document.getElementById(modalId);
-    if (modal) modal.style.display = 'block';
+    if (!modal) return;
+    modal.style.display = modal.classList.contains('photo-modal') ? 'flex' : 'block';
 }
 
 function closeModal(modalId) {
@@ -482,6 +483,127 @@ async function initializeCollections() {
     await Promise.all(Object.keys(contentCollections).map(loadCollection));
 }
 
+// ── Volunteer Images (shared loader) ─────────────────────────────────────────
+
+/**
+ * 优先从本地服务器 API 自动扫描目录，
+ * 若不可用（静态托管）则降级读取 manifest.json。
+ */
+async function loadVolunteerImages() {
+    // 1. 尝试本地开发服务器自动扫描
+    try {
+        const res = await fetch('/api/volunteers');
+        if (res.ok) {
+            const data = await res.json();
+            const images = (data.images || []).filter(item => item.file);
+            if (images.length) return images;
+        }
+    } catch { /* 不在本地服务器环境，继续 */ }
+
+    // 2. 降级：读取手动维护的 manifest.json
+    try {
+        const res = await fetch('image/volunteers/manifest.json');
+        if (res.ok) {
+            const data = await res.json();
+            return (data.images || []).filter(item => item.file);
+        }
+    } catch { /* 静默 */ }
+
+    return [];
+}
+
+// ── Carousel ────────────────────────────────────────────────────────────────
+
+const carouselState = {
+    images: [],
+    current: 0,
+    timer: null
+};
+
+function carouselShow(index) {
+    const { images } = carouselState;
+    if (!images.length) return;
+
+    carouselState.current = (index + images.length) % images.length;
+    const item = images[carouselState.current];
+
+    const imgEl = document.getElementById('carousel-main-img');
+    const titleEl = document.getElementById('carousel-title');
+    const captionEl = document.getElementById('carousel-caption');
+
+    if (imgEl) { imgEl.src = item.file; imgEl.alt = item.title || ''; }
+    if (titleEl) titleEl.textContent = item.title || '';
+    if (captionEl) captionEl.textContent = item.caption || '';
+
+    document.querySelectorAll('.carousel-thumb').forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === carouselState.current);
+    });
+}
+
+function carouselNext() { carouselShow(carouselState.current + 1); carouselResetTimer(); }
+function carouselPrev() { carouselShow(carouselState.current - 1); carouselResetTimer(); }
+
+function carouselResetTimer() {
+    clearInterval(carouselState.timer);
+    carouselState.timer = setInterval(() => carouselShow(carouselState.current + 1), 4000);
+}
+
+async function initCarousel() {
+    const images = await loadVolunteerImages();
+    if (!images.length) return;
+
+    carouselState.images = images;
+
+    const menuEl = document.getElementById('carousel-menu');
+    if (menuEl) {
+        menuEl.innerHTML = images.map((item, i) => `
+            <button class="carousel-thumb${i === 0 ? ' active' : ''}" type="button"
+                onclick="carouselShow(${i}); carouselResetTimer();"
+                aria-label="${escapeHtml(item.title || `图片 ${i + 1}`)}">
+                <img src="${escapeHtml(item.file)}" alt="${escapeHtml(item.title || '')}">
+                <span class="thumb-label">${escapeHtml(item.title || `图片 ${i + 1}`)}</span>
+            </button>
+        `).join('');
+    }
+
+    const sectionEl = document.getElementById('carousel-section');
+    if (sectionEl) sectionEl.style.display = '';
+
+    carouselShow(0);
+    carouselResetTimer();
+}
+
+// ── Volunteer Gallery ────────────────────────────────────────────────────────
+
+function openPhotoModal(src, title, caption) {
+    const imgEl = document.getElementById('photo-modal-img');
+    const titleEl = document.getElementById('photo-modal-title');
+    const subEl = document.getElementById('photo-modal-sub');
+    if (imgEl) { imgEl.src = src; imgEl.alt = title || ''; }
+    if (titleEl) titleEl.textContent = title || '';
+    if (subEl) subEl.textContent = caption || '';
+    showModal('modal-photo');
+}
+
+async function initVolunteerGallery() {
+    const galleryEl = document.getElementById('volunteer-gallery');
+    if (!galleryEl) return;
+
+    const images = await loadVolunteerImages();
+
+    if (!images.length) {
+        galleryEl.innerHTML = '<div class="content-empty">暂无志愿者图片，请将图片放入 image/volunteers/ 目录。</div>';
+        return;
+    }
+
+    galleryEl.innerHTML = images.map(item => `
+        <div class="volunteer-photo-item" onclick="openPhotoModal('${escapeHtml(item.file)}', '${escapeHtml(item.title || '')}', '${escapeHtml(item.caption || '')}')">
+            <img src="${escapeHtml(item.file)}" alt="${escapeHtml(item.title || '')}" loading="lazy">
+            ${item.title ? `<p class="volunteer-photo-label">${escapeHtml(item.title)}</p>` : ''}
+        </div>
+    `).join('');
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     updateTime();
     setInterval(updateTime, 1000 * 30);
@@ -493,4 +615,6 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     initializeCollections();
+    initCarousel();
+    initVolunteerGallery();
 });
