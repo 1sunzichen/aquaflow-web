@@ -22,10 +22,14 @@ const collectionState = {
     records: []
 };
 
+let revealObserver = null;
+
 const DETAIL_META_EXCLUDED_KEYS = new Set([
     'map_title',
     'map_query',
     'map_note',
+    'gallery_title',
+    'gallery_images',
     'service_hours',
     'volunteer_benefit',
     'water_plan',
@@ -49,6 +53,10 @@ function switchModule(moduleId) {
     document.querySelectorAll('.modal').forEach(modal => {
         modal.style.display = 'none';
     });
+
+    if (target) {
+        prepareScrollReveal(target);
+    }
 }
 
 function showModal(modalId) {
@@ -346,6 +354,48 @@ function renderPlanExtras(entry) {
     return `<div class="detail-extras">${volunteerSection}${mapSection}</div>`;
 }
 
+function buildRecordGalleryHtml(entry, galleryImages) {
+    if (!galleryImages.length) return '';
+
+    const galleryTitle = entry.meta.gallery_title || '现场图片';
+    const items = galleryImages.map((item, index) => {
+        const resolved = resolveAssetPath(item.file || item, entry.path);
+        const caption = item.caption || galleryTitle;
+        const title = `${entry.meta.title || '行动记录'} · ${index + 1}`;
+        return `
+            <button class="record-gallery-item" type="button" onclick="openPhotoModal('${escapeHtml(resolved)}', '${escapeHtml(title)}', '${escapeHtml(caption)}')">
+                <img src="${escapeHtml(resolved)}" alt="${escapeHtml(title)}" loading="lazy">
+            </button>
+        `;
+    }).join('');
+
+    return `
+        <section class="record-gallery">
+            <div class="record-gallery-header">
+                <p class="detail-extra-eyebrow">现场画面</p>
+                <h4>${escapeHtml(galleryTitle)}</h4>
+            </div>
+            <div class="record-gallery-grid">${items}</div>
+        </section>
+    `;
+}
+
+async function loadRecordGallery(entry) {
+    const fallbackImages = splitMetaList(entry.meta.gallery_images);
+
+    try {
+        const res = await fetch(`/api/record-images?slug=${encodeURIComponent(entry.slug)}`);
+        if (res.ok) {
+            const data = await res.json();
+            if ((data.images || []).length) {
+                return data.images;
+            }
+        }
+    } catch { /* 静默降级到 front matter */ }
+
+    return fallbackImages;
+}
+
 function sortByDateDesc(items) {
     return [...items].sort((left, right) => {
         const leftTime = Date.parse(left.meta.date || '');
@@ -376,9 +426,11 @@ function renderCollectionList(collectionName) {
             <span class="entry-summary">${escapeHtml(item.meta.summary || '暂无摘要')}</span>
         </button>
     `).join('');
+
+    prepareScrollReveal(listEl);
 }
 
-function renderEntryDetail(collectionName, entry) {
+async function renderEntryDetail(collectionName, entry) {
     const config = contentCollections[collectionName];
     const detailEl = document.getElementById(config.detailId);
     if (!detailEl) return;
@@ -398,7 +450,9 @@ function renderEntryDetail(collectionName, entry) {
         `)
         .join('');
 
-    const extrasHtml = collectionName === 'plans' ? renderPlanExtras(entry) : '';
+    const extrasHtml = collectionName === 'plans'
+        ? renderPlanExtras(entry)
+        : buildRecordGalleryHtml(entry, await loadRecordGallery(entry));
 
     detailEl.classList.remove('detail-loading');
     detailEl.innerHTML = `
@@ -412,6 +466,8 @@ function renderEntryDetail(collectionName, entry) {
         ${extrasHtml}
         <div class="detail-body">${markdownToHtml(entry.body, entry.path)}</div>
     `;
+
+    prepareScrollReveal(detailEl);
 }
 
 function selectEntry(collectionName, slug) {
@@ -483,6 +539,43 @@ async function initializeCollections() {
     await Promise.all(Object.keys(contentCollections).map(loadCollection));
 }
 
+function ensureRevealObserver() {
+    if (revealObserver || typeof IntersectionObserver === 'undefined') return;
+
+    revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+        });
+    }, {
+        threshold: 0.14,
+        rootMargin: '0px 0px -10% 0px'
+    });
+}
+
+function prepareScrollReveal(scope = document) {
+    const root = scope instanceof Element ? scope : document;
+    const targets = root.matches?.('.content-entry, .summary-card, .principle-card, .volunteer-photo-item, .detail-body > p, .detail-body > ul, .detail-body > blockquote, .detail-body > figure, .detail-body > h2, .detail-body > h3, .detail-body > h4, .detail-meta-item, .detail-extra-card')
+        ? [root]
+        : root.querySelectorAll('.content-entry, .summary-card, .principle-card, .volunteer-photo-item, .detail-body > p, .detail-body > ul, .detail-body > blockquote, .detail-body > figure, .detail-body > h2, .detail-body > h3, .detail-body > h4, .detail-meta-item, .detail-extra-card');
+
+    ensureRevealObserver();
+
+    Array.from(targets).forEach((node, index) => {
+        node.classList.add('scroll-reveal');
+        node.dataset.revealDelay = String(index % 4);
+
+        if (!revealObserver) {
+            node.classList.add('is-visible');
+            return;
+        }
+
+        revealObserver.unobserve(node);
+        revealObserver.observe(node);
+    });
+}
+
 // ── Volunteer Images (shared loader) ─────────────────────────────────────────
 
 /**
@@ -510,6 +603,51 @@ async function loadVolunteerImages() {
     } catch { /* 静默 */ }
 
     return [];
+}
+
+async function loadHomeCarouselImages() {
+    try {
+        const manifestResponse = await fetch(contentCollections.records.manifestPath);
+        if (!manifestResponse.ok) {
+            throw new Error(`Manifest request failed: ${contentCollections.records.manifestPath}`);
+        }
+
+        const manifest = await manifestResponse.json();
+        const items = await Promise.all((manifest.items || []).map(async item => {
+            const response = await fetch(item.path);
+            if (!response.ok) return null;
+
+            const raw = await response.text();
+            const parsed = parseFrontMatter(raw);
+            const entry = {
+                slug: item.slug || slugify(parsed.meta.title || item.path),
+                path: item.path,
+                meta: {
+                    ...parsed.meta,
+                    title: parsed.meta.title || item.title || '未命名内容'
+                },
+                body: parsed.body
+            };
+
+            const gallery = await loadRecordGallery(entry);
+            if (!gallery.length) return null;
+
+            return gallery.slice(0, 3).map((image, index) => ({
+                file: resolveAssetPath(image.file || image, entry.path),
+                title: entry.meta.title || `记录 ${entry.slug}`,
+                caption: index === 0
+                    ? (entry.meta.summary || entry.meta.route || '')
+                    : `来自 ${entry.meta.title || entry.slug} 的现场照片`
+            }));
+        }));
+
+        const images = items.flat().filter(Boolean);
+        if (images.length) return images;
+    } catch (error) {
+        console.error(error);
+    }
+
+    return loadVolunteerImages();
 }
 
 // ── Carousel ────────────────────────────────────────────────────────────────
@@ -549,7 +687,7 @@ function carouselResetTimer() {
 }
 
 async function initCarousel() {
-    const images = await loadVolunteerImages();
+    const images = await loadHomeCarouselImages();
     if (!images.length) return;
 
     carouselState.images = images;
@@ -602,6 +740,8 @@ async function initVolunteerGallery() {
             ${item.title ? `<p class="volunteer-photo-label">${escapeHtml(item.title)}</p>` : ''}
         </div>
     `).join('');
+
+    prepareScrollReveal(galleryEl);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -617,4 +757,5 @@ window.addEventListener('DOMContentLoaded', () => {
     initializeCollections();
     initCarousel();
     initVolunteerGallery();
+    prepareScrollReveal(document);
 });
