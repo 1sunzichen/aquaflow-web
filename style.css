@@ -998,3 +998,23 @@ textarea:focus {
         transition: none;
     }
 }
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted, #888);
+    border-top: 1px solid var(--border, #e5e5e5);
+    margin-top: 3rem;
+}
+
+.site-footer a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.site-footer a:hover {
+    color: var(--accent, #0077cc);
+}
