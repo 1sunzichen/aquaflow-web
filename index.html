@@ -145,6 +145,13 @@
                 <p class="eyebrow" data-i18n="volunteers.eyebrow">志愿者风采</p>
                 <h2 data-i18n="volunteers.h2">每一位走进现场的人，都是补给行动真正的样子。</h2>
             </div>
+            <div class="volunteer-join-banner">
+                <div class="vjb-text">
+                    <h3 data-i18n="volunteers.join-title">Join Us as a Volunteer</h3>
+                    <p data-i18n="volunteers.join-desc">We welcome international volunteers. Come walk with us, hand out water to urban workers, and experience a side of Beijing most tourists never see.</p>
+                </div>
+                <button type="button" class="primary-btn" onclick="showModal('modal-volunteer')" data-i18n="volunteers.join-btn">Sign Up</button>
+            </div>
             <div id="volunteer-gallery" class="volunteer-masonry">
                 <div class="content-empty" data-i18n="volunteers.loading">正在加载图片...</div>
             </div>
@@ -238,6 +245,50 @@
     <footer class="site-footer">
         <p>AQUAFLOW 城市补给行动 · <a href="https://memory.oldphoto.site" target="_blank" rel="noreferrer">memory.oldphoto.site</a></p>
     </footer>
+
+    <div id="modal-volunteer" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal-volunteer')">&times;</span>
+            <p class="eyebrow" data-i18n="volunteer.eyebrow">Join Us</p>
+            <h2 data-i18n="volunteer.h2">Volunteer Sign-Up</h2>
+            <p class="modal-intro" data-i18n="volunteer.intro">No experience needed. Just show up, walk with us, and connect with the city on a human level. We'll handle the rest.</p>
+
+            <form action="https://formspree.io/f/xbdzvavv" method="POST">
+                <input type="hidden" name="_subject" value="Volunteer Sign-Up">
+                <div class="form-group">
+                    <label data-i18n="volunteer.name-label">Your Name</label>
+                    <input type="text" name="name" required data-i18n-placeholder="volunteer.name-placeholder" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="volunteer.email-label">Email</label>
+                    <input type="email" name="email" required data-i18n-placeholder="volunteer.email-placeholder" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="volunteer.nationality-label">Nationality</label>
+                    <input type="text" name="nationality" data-i18n-placeholder="volunteer.nationality-placeholder" placeholder="e.g. French, Japanese, Brazilian...">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="volunteer.date-label">When are you available?</label>
+                    <input type="text" name="availability" data-i18n-placeholder="volunteer.date-placeholder" placeholder="e.g. any weekend in June, or a specific date">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="volunteer.lang-label">Languages you speak</label>
+                    <input type="text" name="languages" data-i18n-placeholder="volunteer.lang-placeholder" placeholder="e.g. English, Spanish, Mandarin...">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="volunteer.message-label">Anything you'd like to share?</label>
+                    <textarea name="message" rows="3" data-i18n-placeholder="volunteer.message-placeholder" placeholder="Why you want to join, questions, etc."></textarea>
+                </div>
+                <button type="submit" class="primary-btn submit-btn" data-i18n="volunteer.submit">Send Sign-Up</button>
+            </form>
+
+            <div class="contact-panel">
+                <p class="contact-panel-title" data-i18n="volunteer.wechat-title">Or reach us on WeChat</p>
+                <p class="contact-panel-id">WECHAT: 15210187668</p>
+                <img src="assets/images/WXDi.jpg" alt="WeChat QR Code" class="contact-qr-image">
+            </div>
+        </div>
+    </div>
 
     <div id="modal-guide" class="modal">
         <div class="modal-content">

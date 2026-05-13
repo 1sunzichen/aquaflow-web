@@ -105,6 +105,28 @@
   "detail.map-location": "Location: ",
   "detail.no-image": "No volunteer photos yet. Place images in image/volunteers/.",
 
+  "volunteers.join-title": "Join Us as a Volunteer",
+  "volunteers.join-desc": "We welcome international volunteers. Come walk with us, hand out water to urban workers, and experience a side of Beijing most tourists never see.",
+  "volunteers.join-btn": "Sign Up",
+
+  "volunteer.eyebrow": "Join Us",
+  "volunteer.h2": "Volunteer Sign-Up",
+  "volunteer.intro": "No experience needed. Just show up, walk with us, and connect with the city on a human level. We'll handle the rest.",
+  "volunteer.name-label": "Your Name",
+  "volunteer.name-placeholder": "Your name",
+  "volunteer.email-label": "Email",
+  "volunteer.email-placeholder": "your@email.com",
+  "volunteer.nationality-label": "Nationality",
+  "volunteer.nationality-placeholder": "e.g. French, Japanese, Brazilian...",
+  "volunteer.date-label": "When are you available?",
+  "volunteer.date-placeholder": "e.g. any weekend in June, or a specific date",
+  "volunteer.lang-label": "Languages you speak",
+  "volunteer.lang-placeholder": "e.g. English, Spanish, Mandarin...",
+  "volunteer.message-label": "Anything you'd like to share?",
+  "volunteer.message-placeholder": "Why you want to join, questions, etc.",
+  "volunteer.submit": "Send Sign-Up",
+  "volunteer.wechat-title": "Or reach us on WeChat",
+
   "trails.book-btn": "Book a Guide",
   "trails.join-btn": "Join a Group Hike",
 

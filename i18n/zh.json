@@ -105,6 +105,28 @@
   "detail.map-location": "地点：",
   "detail.no-image": "暂无志愿者图片，请将图片放入 image/volunteers/ 目录。",
 
+  "volunteers.join-title": "加入志愿者",
+  "volunteers.join-desc": "我们欢迎国际志愿者。和我们一起走进城市，给户外劳动者送水，体验大多数游客看不到的北京。",
+  "volunteers.join-btn": "我要报名",
+
+  "volunteer.eyebrow": "加入我们",
+  "volunteer.h2": "志愿者报名",
+  "volunteer.intro": "不需要任何经验，来了就能参与。我们会安排好一切。",
+  "volunteer.name-label": "姓名",
+  "volunteer.name-placeholder": "你的名字",
+  "volunteer.email-label": "邮箱",
+  "volunteer.email-placeholder": "your@email.com",
+  "volunteer.nationality-label": "国籍",
+  "volunteer.nationality-placeholder": "如：法国、日本、巴西...",
+  "volunteer.date-label": "你什么时候有空？",
+  "volunteer.date-placeholder": "如：六月任意周末，或具体日期",
+  "volunteer.lang-label": "会说哪些语言？",
+  "volunteer.lang-placeholder": "如：英语、中文、西班牙语...",
+  "volunteer.message-label": "其他想说的",
+  "volunteer.message-placeholder": "为什么想参加，有什么问题都可以写",
+  "volunteer.submit": "提交报名",
+  "volunteer.wechat-title": "也可以直接加微信",
+
   "trails.book-btn": "预约向导",
   "trails.join-btn": "加入团体徒步",
 
