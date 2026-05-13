@@ -103,5 +103,29 @@
   "detail.map-zoom": "放大查看地图",
   "detail.map-note-default": "如果地图嵌入显示受限，可以点击按钮在百度地图中打开。",
   "detail.map-location": "地点：",
-  "detail.no-image": "暂无志愿者图片，请将图片放入 image/volunteers/ 目录。"
+  "detail.no-image": "暂无志愿者图片，请将图片放入 image/volunteers/ 目录。",
+
+  "trails.book-btn": "预约向导",
+  "trails.join-btn": "加入团体徒步",
+
+  "guide.eyebrow": "预约 / 联系",
+  "guide.h2": "预约向导或加入徒步",
+  "guide.intro": "填写下方表单，我们将在 24 小时内回复确认详情。",
+  "guide.type-label": "类型",
+  "guide.opt-guide": "私人向导",
+  "guide.opt-group": "加入团队徒步",
+  "guide.opt-custom": "定制路线",
+  "guide.name-label": "姓名",
+  "guide.name-placeholder": "你的名字",
+  "guide.email-label": "邮箱",
+  "guide.email-placeholder": "your@email.com",
+  "guide.trail-label": "目标路线",
+  "guide.trail-placeholder": "如：慕田峪长城",
+  "guide.date-label": "期望日期",
+  "guide.people-label": "人数",
+  "guide.people-placeholder": "2",
+  "guide.message-label": "其他说明",
+  "guide.message-placeholder": "特殊需求、体能情况、问题...",
+  "guide.submit": "提交咨询",
+  "guide.wechat-title": "或直接通过微信联系"
 }

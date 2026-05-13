@@ -103,5 +103,29 @@
   "detail.map-zoom": "Expand Map",
   "detail.map-note-default": "If the embedded map is restricted, use the button to open in Baidu Maps.",
   "detail.map-location": "Location: ",
-  "detail.no-image": "No volunteer photos yet. Place images in image/volunteers/."
+  "detail.no-image": "No volunteer photos yet. Place images in image/volunteers/.",
+
+  "trails.book-btn": "Book a Guide",
+  "trails.join-btn": "Join a Group Hike",
+
+  "guide.eyebrow": "Book / Contact",
+  "guide.h2": "Book a Guide or Join a Hike",
+  "guide.intro": "Fill in the form below and we'll get back to you within 24 hours to confirm availability and details.",
+  "guide.type-label": "Request Type",
+  "guide.opt-guide": "Private Guide",
+  "guide.opt-group": "Join Group Hike",
+  "guide.opt-custom": "Custom Route Planning",
+  "guide.name-label": "Your Name",
+  "guide.name-placeholder": "Your name",
+  "guide.email-label": "Email",
+  "guide.email-placeholder": "your@email.com",
+  "guide.trail-label": "Which Trail?",
+  "guide.trail-placeholder": "e.g. Great Wall – Mutianyu",
+  "guide.date-label": "Preferred Date",
+  "guide.people-label": "Group Size",
+  "guide.people-placeholder": "2",
+  "guide.message-label": "Anything else?",
+  "guide.message-placeholder": "Special requirements, fitness level, questions...",
+  "guide.submit": "Send Inquiry",
+  "guide.wechat-title": "Or contact us directly on WeChat"
 }

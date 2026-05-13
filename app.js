@@ -1,7 +1,7 @@
 // ── i18n ─────────────────────────────────────────────────────────────────────
 
 const i18n = {
-    locale: localStorage.getItem('locale') || 'zh',
+    locale: localStorage.getItem('locale') || 'en',
     data: {},
 
     async load(locale) {

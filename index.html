@@ -13,19 +13,19 @@
             <span class="brand-subtitle" data-i18n="brand.subtitle">城市补给行动</span>
         </div>
         <div class="nav-links">
-            <a href="#" onclick="switchModule('module-home')" class="active" data-i18n="nav.home">首页</a>
+            <a href="#" onclick="switchModule('module-home')" data-i18n="nav.home">首页</a>
             <a href="#" onclick="switchModule('module-philosophy')" data-i18n="nav.philosophy">理念</a>
             <a href="#" onclick="switchModule('module-plan')" data-i18n="nav.plan">计划</a>
             <a href="#" onclick="switchModule('module-record')" data-i18n="nav.record">记录</a>
             <a href="#" onclick="switchModule('module-volunteers')" data-i18n="nav.volunteers">志愿者</a>
-            <a href="#" onclick="switchModule('module-trails')" data-i18n="nav.trails">徒步路线</a>
+            <a href="#" onclick="switchModule('module-trails')" class="active" data-i18n="nav.trails">徒步路线</a>
             <a href="#" onclick="showModal('modal-access')" data-i18n="nav.contact">联系</a>
             <button type="button" class="lang-switch" onclick="toggleLang()" data-i18n="lang.switch">EN</button>
         </div>
     </nav>
 
     <main id="app-container">
-        <section id="module-home" class="module active">
+        <section id="module-home" class="module">
             <header class="hero">
                 <div class="hero-copy">
                     <p class="eyebrow" data-i18n="home.eyebrow">让善意更稳定地抵达现场</p>
@@ -150,10 +150,14 @@
             </div>
         </section>
 
-        <section id="module-trails" class="module">
+        <section id="module-trails" class="module active">
             <div class="section-heading">
                 <p class="eyebrow" data-i18n="trails.eyebrow">徒步路线</p>
                 <h2 data-i18n="trails.h2">发现中国最美徒步路线，专为国际旅行者整理的英文攻略。</h2>
+                <div class="trails-cta-row">
+                    <button type="button" class="primary-btn" onclick="showModal('modal-guide')" data-i18n="trails.book-btn">Book a Guide</button>
+                    <button type="button" class="secondary-btn" onclick="showModal('modal-guide')" data-i18n="trails.join-btn">Join a Group Hike</button>
+                </div>
             </div>
             <div class="content-shell">
                 <aside class="content-sidebar">
@@ -234,6 +238,60 @@
     <footer class="site-footer">
         <p>AQUAFLOW 城市补给行动 · <a href="https://memory.oldphoto.site" target="_blank" rel="noreferrer">memory.oldphoto.site</a></p>
     </footer>
+
+    <div id="modal-guide" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal-guide')">&times;</span>
+            <p class="eyebrow" data-i18n="guide.eyebrow">Book / Contact</p>
+            <h2 data-i18n="guide.h2">Book a Guide or Join a Hike</h2>
+            <p class="modal-intro" data-i18n="guide.intro">Fill in the form below and we'll get back to you within 24 hours to confirm availability and details.</p>
+
+            <form action="https://formspree.io/f/xbdzvavv" method="POST">
+                <input type="hidden" name="_subject" value="Hiking Inquiry">
+                <div class="form-group">
+                    <label data-i18n="guide.type-label">Request Type</label>
+                    <select name="type">
+                        <option value="guide" data-i18n="guide.opt-guide">Private Guide</option>
+                        <option value="group" data-i18n="guide.opt-group">Join Group Hike</option>
+                        <option value="custom" data-i18n="guide.opt-custom">Custom Route Planning</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="guide.name-label">Your Name</label>
+                    <input type="text" name="name" required data-i18n-placeholder="guide.name-placeholder" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="guide.email-label">Email</label>
+                    <input type="email" name="email" required data-i18n-placeholder="guide.email-placeholder" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="guide.trail-label">Which Trail?</label>
+                    <input type="text" name="trail" data-i18n-placeholder="guide.trail-placeholder" placeholder="e.g. Great Wall – Mutianyu">
+                </div>
+                <div class="form-group form-group-row">
+                    <div>
+                        <label data-i18n="guide.date-label">Preferred Date</label>
+                        <input type="date" name="date">
+                    </div>
+                    <div>
+                        <label data-i18n="guide.people-label">Group Size</label>
+                        <input type="number" name="people" min="1" max="20" placeholder="2" data-i18n-placeholder="guide.people-placeholder">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="guide.message-label">Anything else?</label>
+                    <textarea name="message" rows="4" data-i18n-placeholder="guide.message-placeholder" placeholder="Special requirements, fitness level, questions..."></textarea>
+                </div>
+                <button type="submit" class="primary-btn submit-btn" data-i18n="guide.submit">Send Inquiry</button>
+            </form>
+
+            <div class="contact-panel">
+                <p class="contact-panel-title" data-i18n="guide.wechat-title">Or contact us directly on WeChat</p>
+                <p class="contact-panel-id">WECHAT: 15210187668</p>
+                <img src="assets/images/WXDi.jpg" alt="WeChat QR Code" class="contact-qr-image">
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>

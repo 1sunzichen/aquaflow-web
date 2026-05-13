@@ -1037,3 +1037,24 @@ textarea:focus {
 .lang-switch:hover {
     opacity: 1;
 }
+
+/* ── Trails CTA Row ──────────────────────────────────────────────────────── */
+.trails-cta-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+}
+
+/* ── Form two-column row ─────────────────────────────────────────────────── */
+.form-group-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 480px) {
+    .form-group-row {
+        grid-template-columns: 1fr;
+    }
+}
