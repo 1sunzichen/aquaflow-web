@@ -10,15 +10,17 @@
     <nav class="site-nav">
         <div class="nav-brand">
             <span class="brand-mark">AQUAFLOW</span>
-            <span class="brand-subtitle">城市补给行动</span>
+            <span class="brand-subtitle" data-i18n="brand.subtitle">城市补给行动</span>
         </div>
         <div class="nav-links">
-            <a href="#" onclick="switchModule('module-home')" class="active">首页</a>
-            <a href="#" onclick="switchModule('module-philosophy')">理念</a>
-            <a href="#" onclick="switchModule('module-plan')">计划</a>
-            <a href="#" onclick="switchModule('module-record')">记录</a>
-            <a href="#" onclick="switchModule('module-volunteers')">志愿者</a>
-            <a href="#" onclick="showModal('modal-access')">联系</a>
+            <a href="#" onclick="switchModule('module-home')" class="active" data-i18n="nav.home">首页</a>
+            <a href="#" onclick="switchModule('module-philosophy')" data-i18n="nav.philosophy">理念</a>
+            <a href="#" onclick="switchModule('module-plan')" data-i18n="nav.plan">计划</a>
+            <a href="#" onclick="switchModule('module-record')" data-i18n="nav.record">记录</a>
+            <a href="#" onclick="switchModule('module-volunteers')" data-i18n="nav.volunteers">志愿者</a>
+            <a href="#" onclick="switchModule('module-trails')" data-i18n="nav.trails">徒步路线</a>
+            <a href="#" onclick="showModal('modal-access')" data-i18n="nav.contact">联系</a>
+            <button type="button" class="lang-switch" onclick="toggleLang()" data-i18n="lang.switch">EN</button>
         </div>
     </nav>
 
@@ -26,22 +28,22 @@
         <section id="module-home" class="module active">
             <header class="hero">
                 <div class="hero-copy">
-                    <p class="eyebrow">让善意更稳定地抵达现场</p>
-                    <h1>Aquaflow 希望把每一次补给行动，做成清晰、可持续、能被看懂的公共记录。</h1>
-                    <p class="hero-text">这里会持续更新近期计划、行动记录和联系方式。计划与记录都通过 Markdown 文档维护，每一期都有自己的独立文件夹，方便沉淀文字、图片与路线资料。</p>
+                    <p class="eyebrow" data-i18n="home.eyebrow">让善意更稳定地抵达现场</p>
+                    <h1 data-i18n="home.h1">Aquaflow 希望把每一次补给行动，做成清晰、可持续、能被看懂的公共记录。</h1>
+                    <p class="hero-text" data-i18n="home.hero-text">这里会持续更新近期计划、行动记录和联系方式。计划与记录都通过 Markdown 文档维护，每一期都有自己的独立文件夹，方便沉淀文字、图片与路线资料。</p>
                     <div class="hero-actions">
-                        <button type="button" class="primary-btn" onclick="switchModule('module-plan')">查看近期计划</button>
-                        <button type="button" class="secondary-btn" onclick="switchModule('module-record')">查看行动记录</button>
+                        <button type="button" class="primary-btn" onclick="switchModule('module-plan')" data-i18n="home.btn-plans">查看近期计划</button>
+                        <button type="button" class="secondary-btn" onclick="switchModule('module-record')" data-i18n="home.btn-records">查看行动记录</button>
                     </div>
                 </div>
                 <div class="hero-panel">
                     <div class="status-card">
-                        <span class="status-label">当前时间</span>
+                        <span class="status-label" data-i18n="home.status.time">当前时间</span>
                         <strong id="system-time">加载中...</strong>
                     </div>
                     <div class="status-card">
-                        <span class="status-label">内容维护方式</span>
-                        <p>每一期一个目录，目录中包含 <code>index.md</code> 与 <code>images/</code>。</p>
+                        <span class="status-label" data-i18n="home.status.maintenance">内容维护方式</span>
+                        <p data-i18n="home.status.maintenance-text">每一期一个目录，目录中包含 <code>index.md</code> 与 <code>images/</code>。</p>
                     </div>
                 </div>
             </header>
@@ -63,89 +65,107 @@
 
             <section class="summary-grid">
                 <article class="summary-card">
-                    <h2>我们在做什么</h2>
-                    <p>面向城市建设者、户外劳动者和现场工作者，提供低干预、轻量化的饮水与补给支持。</p>
+                    <h2 data-i18n="home.card1.title">我们在做什么</h2>
+                    <p data-i18n="home.card1.text">面向城市建设者、户外劳动者和现场工作者，提供低干预、轻量化的饮水与补给支持。</p>
                 </article>
                 <article class="summary-card clickable" onclick="switchModule('module-plan')">
-                    <h2>如何看计划</h2>
-                    <p>计划页会列出即将执行的补给行动，包含时间、起点、目标区域和本次准备内容。</p>
+                    <h2 data-i18n="home.card2.title">如何看计划</h2>
+                    <p data-i18n="home.card2.text">计划页会列出即将执行的补给行动，包含时间、起点、目标区域和本次准备内容。</p>
                 </article>
                 <article class="summary-card clickable" onclick="switchModule('module-record')">
-                    <h2>如何看记录</h2>
-                    <p>记录页会沉淀路线观察、执行反馈和图片资料，帮助每一次行动逐步改进。</p>
+                    <h2 data-i18n="home.card3.title">如何看记录</h2>
+                    <p data-i18n="home.card3.text">记录页会沉淀路线观察、执行反馈和图片资料，帮助每一次行动逐步改进。</p>
                 </article>
             </section>
         </section>
 
         <section id="module-philosophy" class="module">
             <div class="section-heading">
-                <p class="eyebrow">行动理念</p>
-                <h2>少一点口号，多一点真正可执行的补给。</h2>
+                <p class="eyebrow" data-i18n="philosophy.eyebrow">行动理念</p>
+                <h2 data-i18n="philosophy.h2">少一点口号，多一点真正可执行的补给。</h2>
             </div>
             <div class="principle-grid">
                 <article class="principle-card">
-                    <h3>顺着现场节奏去做</h3>
-                    <p>我们尽量不打断别人原本的工作状态，不制造额外围观，只把补给送到真正需要的位置。</p>
+                    <h3 data-i18n="philosophy.card1.title">顺着现场节奏去做</h3>
+                    <p data-i18n="philosophy.card1.text">我们尽量不打断别人原本的工作状态，不制造额外围观，只把补给送到真正需要的位置。</p>
                 </article>
                 <article class="principle-card">
-                    <h3>优先做能持续的事情</h3>
-                    <p>比起一次性的大动作，更重视轻量、稳定、能重复执行的行动方式。</p>
+                    <h3 data-i18n="philosophy.card2.title">优先做能持续的事情</h3>
+                    <p data-i18n="philosophy.card2.text">比起一次性的大动作，更重视轻量、稳定、能重复执行的行动方式。</p>
                 </article>
                 <article class="principle-card">
-                    <h3>把经验沉淀下来</h3>
-                    <p>每次行动都会留下清晰的计划与记录，让后来的人知道发生过什么、下次该怎么做得更好。</p>
+                    <h3 data-i18n="philosophy.card3.title">把经验沉淀下来</h3>
+                    <p data-i18n="philosophy.card3.text">每次行动都会留下清晰的计划与记录，让后来的人知道发生过什么、下次该怎么做得更好。</p>
                 </article>
             </div>
         </section>
 
         <section id="module-plan" class="module">
             <div class="section-heading">
-                <p class="eyebrow">近期计划</p>
-                <h2>每一期计划都会说明志愿者安排、活动节奏和地点信息，并可配合地图查看集合位置。</h2>
+                <p class="eyebrow" data-i18n="plan.eyebrow">近期计划</p>
+                <h2 data-i18n="plan.h2">每一期计划都会说明志愿者安排、活动节奏和地点信息，并可配合地图查看集合位置。</h2>
             </div>
             <div class="content-shell">
                 <aside class="content-sidebar">
                     <div class="content-meta">
                         <span class="content-count" id="plans-count">加载中...</span>
-                        <p>目录结构示例：<code>content/plans/某一期/index.md</code> 与 <code>content/plans/某一期/images/</code></p>
                     </div>
                     <div id="plans-list" class="content-list" aria-live="polite">
-                        <div class="content-empty">正在读取计划列表...</div>
+                        <div class="content-empty" data-i18n="plan.loading">正在读取计划列表...</div>
                     </div>
                 </aside>
                 <article class="content-detail">
-                    <div id="plans-detail" class="detail-panel detail-loading">正在读取计划内容...</div>
+                    <div id="plans-detail" class="detail-panel detail-loading" data-i18n="plan.detail-loading">正在读取计划内容...</div>
+                </article>
+            </div>
+        </section>
+
+        <section id="module-record" class="module">
+            <div class="section-heading">
+                <p class="eyebrow" data-i18n="record.eyebrow">行动记录</p>
+                <h2 data-i18n="record.h2">记录页按每期归档，方便把文字总结和图片资料放在同一个目录里。</h2>
+            </div>
+            <div class="content-shell">
+                <aside class="content-sidebar">
+                    <div class="content-meta">
+                        <span class="content-count" id="records-count">加载中...</span>
+                    </div>
+                    <div id="records-list" class="content-list" aria-live="polite">
+                        <div class="content-empty" data-i18n="record.loading">正在读取记录列表...</div>
+                    </div>
+                </aside>
+                <article class="content-detail">
+                    <div id="records-detail" class="detail-panel detail-loading" data-i18n="record.detail-loading">正在读取记录内容...</div>
                 </article>
             </div>
         </section>
 
         <section id="module-volunteers" class="module">
             <div class="section-heading">
-                <p class="eyebrow">志愿者风采</p>
-                <h2>每一位走进现场的人，都是补给行动真正的样子。</h2>
+                <p class="eyebrow" data-i18n="volunteers.eyebrow">志愿者风采</p>
+                <h2 data-i18n="volunteers.h2">每一位走进现场的人，都是补给行动真正的样子。</h2>
             </div>
             <div id="volunteer-gallery" class="volunteer-masonry">
-                <div class="content-empty">正在加载图片...</div>
+                <div class="content-empty" data-i18n="volunteers.loading">正在加载图片...</div>
             </div>
         </section>
 
-        <section id="module-record" class="module">
+        <section id="module-trails" class="module">
             <div class="section-heading">
-                <p class="eyebrow">行动记录</p>
-                <h2>记录页按每期归档，方便把文字总结和图片资料放在同一个目录里。</h2>
+                <p class="eyebrow" data-i18n="trails.eyebrow">徒步路线</p>
+                <h2 data-i18n="trails.h2">发现中国最美徒步路线，专为国际旅行者整理的英文攻略。</h2>
             </div>
             <div class="content-shell">
                 <aside class="content-sidebar">
                     <div class="content-meta">
-                        <span class="content-count" id="records-count">加载中...</span>
-                        <p>目录结构示例：<code>content/records/某一期/index.md</code> 与 <code>content/records/某一期/images/</code></p>
+                        <span class="content-count" id="trails-count">加载中...</span>
                     </div>
-                    <div id="records-list" class="content-list" aria-live="polite">
-                        <div class="content-empty">正在读取记录列表...</div>
+                    <div id="trails-list" class="content-list" aria-live="polite">
+                        <div class="content-empty" data-i18n="trails.loading">正在读取路线列表...</div>
                     </div>
                 </aside>
                 <article class="content-detail">
-                    <div id="records-detail" class="detail-panel detail-loading">正在读取记录内容...</div>
+                    <div id="trails-detail" class="detail-panel detail-loading" data-i18n="trails.detail-loading">正在读取路线内容...</div>
                 </article>
             </div>
         </section>
@@ -165,34 +185,34 @@
     <div id="modal-access" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('modal-access')">&times;</span>
-            <p class="eyebrow">联系我们</p>
-            <h2>参与、建议、同步现场信息</h2>
-            <p class="modal-intro">如果你想报名参与、提供路线建议，或者同步一线观察，可以通过下面的表单联系。</p>
+            <p class="eyebrow" data-i18n="contact.eyebrow">联系我们</p>
+            <h2 data-i18n="contact.h2">参与、建议、同步现场信息</h2>
+            <p class="modal-intro" data-i18n="contact.intro">如果你想报名参与、提供路线建议，或者同步一线观察，可以通过下面的表单联系。</p>
 
             <form action="https://formspree.io/f/xbdzvavv" method="POST">
                 <div class="form-group">
-                    <label>联系类型</label>
+                    <label data-i18n="contact.type">联系类型</label>
                     <select name="type">
-                        <option value="volunteer">志愿者登记</option>
-                        <option value="suggestion">系统改进建议</option>
-                        <option value="report">运行日志同步</option>
+                        <option value="volunteer" data-i18n="contact.opt-volunteer">志愿者登记</option>
+                        <option value="suggestion" data-i18n="contact.opt-suggestion">系统改进建议</option>
+                        <option value="report" data-i18n="contact.opt-report">运行日志同步</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>联系方式（微信 / 邮箱）</label>
-                    <input type="text" name="contact" required placeholder="请留下你的称呼和联系方式">
+                    <label data-i18n="contact.contact-label">联系方式（微信 / 邮箱）</label>
+                    <input type="text" name="contact" required data-i18n-placeholder="contact.contact-placeholder" placeholder="请留下你的称呼和联系方式">
                 </div>
                 <div class="form-group">
-                    <label>想说的话</label>
-                    <textarea name="message" rows="5" placeholder="可以介绍自己，也可以直接写建议或现场信息"></textarea>
+                    <label data-i18n="contact.message-label">想说的话</label>
+                    <textarea name="message" rows="5" data-i18n-placeholder="contact.message-placeholder" placeholder="可以介绍自己，也可以直接写建议或现场信息"></textarea>
                 </div>
-                <button type="submit" class="primary-btn submit-btn">提交信息</button>
+                <button type="submit" class="primary-btn submit-btn" data-i18n="contact.submit">提交信息</button>
             </form>
             <div class="contact-panel">
-                <p class="contact-panel-title">也可以直接添加微信</p>
+                <p class="contact-panel-title" data-i18n="contact.wechat-title">也可以直接添加微信</p>
                 <p class="contact-panel-id">WECHAT: 15210187668</p>
                 <img src="assets/images/WXDi.jpg" alt="Aquaflow 微信联系方式" class="contact-qr-image">
-                <p class="contact-panel-tip">如果表单提交失败，可以直接扫码或搜索微信号联系。</p>
+                <p class="contact-panel-tip" data-i18n="contact.wechat-tip">如果表单提交失败，可以直接扫码或搜索微信号联系。</p>
             </div>
         </div>
     </div>
@@ -200,14 +220,14 @@
     <div id="modal-map" class="modal">
         <div class="modal-content map-modal-content">
             <span class="close" onclick="closeModal('modal-map')">&times;</span>
-            <p class="eyebrow">地图查看</p>
-            <h2 id="map-modal-title">地点地图</h2>
+            <p class="eyebrow" data-i18n="map.eyebrow">地图查看</p>
+            <h2 id="map-modal-title" data-i18n="map.title">地点地图</h2>
             <p id="map-modal-location" class="map-location-text"></p>
             <div class="map-modal-shell">
                 <iframe id="map-modal-frame" class="map-embed map-embed-large" title="放大地图" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <p id="map-modal-note" class="map-note"></p>
-            <a id="map-modal-link" class="map-link-btn" href="#" target="_blank" rel="noreferrer">在百度地图中打开</a>
+            <a id="map-modal-link" class="map-link-btn" href="#" target="_blank" rel="noreferrer" data-i18n="map.open">在百度地图中打开</a>
         </div>
     </div>
 

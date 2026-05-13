@@ -1,3 +1,55 @@
+// ── i18n ─────────────────────────────────────────────────────────────────────
+
+const i18n = {
+    locale: localStorage.getItem('locale') || 'zh',
+    data: {},
+
+    async load(locale) {
+        const res = await fetch(`i18n/${locale}.json`);
+        this.data = await res.json();
+        this.locale = locale;
+        localStorage.setItem('locale', locale);
+        document.documentElement.lang = locale === 'zh' ? 'zh-CN' : 'en';
+        this.apply();
+    },
+
+    t(key) {
+        return this.data[key] || key;
+    },
+
+    apply() {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            el.textContent = this.t(el.dataset.i18n);
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            el.placeholder = this.t(el.dataset.i18nPlaceholder);
+        });
+        // Sync collection strings with current locale
+        updateCollectionStrings();
+        // Re-render already-loaded lists
+        Object.keys(contentCollections).forEach(name => {
+            if (collectionState[name] && collectionState[name].length) {
+                renderCollectionList(name);
+            }
+        });
+    }
+};
+
+function updateCollectionStrings() {
+    contentCollections.plans.emptyMessage   = i18n.t('plan.empty');
+    contentCollections.plans.errorMessage   = i18n.t('plan.error');
+    contentCollections.records.emptyMessage = i18n.t('record.empty');
+    contentCollections.records.errorMessage = i18n.t('record.error');
+    contentCollections.trails.emptyMessage  = i18n.t('trails.empty');
+    contentCollections.trails.errorMessage  = i18n.t('trails.error');
+}
+
+function toggleLang() {
+    i18n.load(i18n.locale === 'zh' ? 'en' : 'zh');
+}
+
+// ── Content Collections ───────────────────────────────────────────────────────
+
 const contentCollections = {
     plans: {
         manifestPath: 'content/plans/manifest.json',
@@ -14,12 +66,21 @@ const contentCollections = {
         countId: 'records-count',
         emptyMessage: '还没有记录内容。',
         errorMessage: '记录内容暂时无法加载。'
+    },
+    trails: {
+        manifestPath: 'content/trails/manifest.json',
+        listId: 'trails-list',
+        detailId: 'trails-detail',
+        countId: 'trails-count',
+        emptyMessage: '还没有路线内容。',
+        errorMessage: '路线内容暂时无法加载。'
     }
 };
 
 const collectionState = {
     plans: [],
-    records: []
+    records: [],
+    trails: []
 };
 
 let revealObserver = null;
@@ -254,18 +315,9 @@ function markdownToHtml(markdown, docPath) {
 }
 
 function formatMetaLabel(key) {
-    const labels = {
-        date: '日期',
-        status: '状态',
-        start_node: '起点',
-        target_zone: '目标区域',
-        unit_load: '补给准备',
-        route: '路线',
-        weather: '天气',
-        summary: '摘要'
-    };
-
-    return labels[key] || key.replaceAll('_', ' ');
+    const i18nKey = `meta.${key}`;
+    if (i18n.data[i18nKey]) return i18n.t(i18nKey);
+    return key.replaceAll('_', ' ');
 }
 
 function splitMetaList(value) {
@@ -293,8 +345,8 @@ function renderVolunteerSection(entry) {
 
     return `
         <section class="detail-extra-card">
-            <p class="detail-extra-eyebrow">志愿者安排</p>
-            <h4>这次参与除了发水，还会有完整的同行安排。</h4>
+            <p class="detail-extra-eyebrow">${i18n.t('detail.volunteer-eyebrow')}</p>
+            <h4>${i18n.t('detail.volunteer-desc')}</h4>
             <div class="schedule-list">
                 ${items.map(([label, value]) => `
                     <div class="schedule-item">
@@ -311,14 +363,14 @@ function renderMapSection(entry) {
     const mapQuery = entry.meta.map_query;
     if (!mapQuery) return '';
 
-    const mapTitle = entry.meta.map_title || '地点参考地图';
-    const mapNote = entry.meta.map_note || '如果地图嵌入显示受限，可以点击按钮在百度地图中打开。';
+    const mapTitle = entry.meta.map_title || i18n.t('detail.map-eyebrow');
+    const mapNote = entry.meta.map_note || i18n.t('detail.map-note-default');
     const mapUrl = createBaiduMapUrl(mapQuery);
     const locationText = entry.meta.map_location || entry.meta.start_node || mapQuery;
 
     return `
         <section class="detail-extra-card map-card">
-            <p class="detail-extra-eyebrow">地点地图</p>
+            <p class="detail-extra-eyebrow">${i18n.t('detail.map-eyebrow')}</p>
             <h4>${escapeHtml(mapTitle)}</h4>
             <p class="map-location-text">地点：${escapeHtml(locationText)}</p>
             <div class="map-embed-shell">
@@ -337,9 +389,9 @@ function renderMapSection(entry) {
                     class="map-link-btn map-expand-btn"
                     onclick="openMapModal('${escapeHtml(mapTitle)}', '${escapeHtml(mapUrl)}', '${escapeHtml(locationText)}', '${escapeHtml(mapNote)}')"
                 >
-                    放大查看地图
+                    ${i18n.t('detail.map-zoom')}
                 </button>
-                <a class="map-link-btn" href="${escapeHtml(mapUrl)}" target="_blank" rel="noreferrer">在百度地图中打开</a>
+                <a class="map-link-btn" href="${escapeHtml(mapUrl)}" target="_blank" rel="noreferrer">${i18n.t('map.open')}</a>
             </div>
         </section>
     `;
@@ -357,7 +409,7 @@ function renderPlanExtras(entry) {
 function buildRecordGalleryHtml(entry, galleryImages) {
     if (!galleryImages.length) return '';
 
-    const galleryTitle = entry.meta.gallery_title || '现场图片';
+    const galleryTitle = entry.meta.gallery_title || i18n.t('detail.gallery-eyebrow');
     const items = galleryImages.map((item, index) => {
         const resolved = resolveAssetPath(item.file || item, entry.path);
         const caption = item.caption || galleryTitle;
@@ -372,7 +424,7 @@ function buildRecordGalleryHtml(entry, galleryImages) {
     return `
         <section class="record-gallery">
             <div class="record-gallery-header">
-                <p class="detail-extra-eyebrow">现场画面</p>
+                <p class="detail-extra-eyebrow">${i18n.t('detail.gallery-eyebrow')}</p>
                 <h4>${escapeHtml(galleryTitle)}</h4>
             </div>
             <div class="record-gallery-grid">${items}</div>
@@ -458,7 +510,7 @@ async function renderEntryDetail(collectionName, entry) {
     detailEl.innerHTML = `
         <div class="detail-header">
             <div>
-                <p class="detail-kicker">${collectionName === 'plans' ? '计划详情' : '行动记录'}</p>
+                <p class="detail-kicker">${i18n.t(`${collectionName}.kicker`)}</p>
                 <h3>${escapeHtml(entry.meta.title || entry.slug)}</h3>
             </div>
         </div>
@@ -730,7 +782,7 @@ async function initVolunteerGallery() {
     const images = await loadVolunteerImages();
 
     if (!images.length) {
-        galleryEl.innerHTML = '<div class="content-empty">暂无志愿者图片，请将图片放入 image/volunteers/ 目录。</div>';
+        galleryEl.innerHTML = `<div class="content-empty">${i18n.t('detail.no-image')}</div>`;
         return;
     }
 
@@ -744,7 +796,7 @@ async function initVolunteerGallery() {
     prepareScrollReveal(galleryEl);
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
     updateTime();
     setInterval(updateTime, 1000 * 30);
 
@@ -753,6 +805,9 @@ window.addEventListener('DOMContentLoaded', () => {
             event.target.style.display = 'none';
         }
     };
+
+    // Load i18n first so all dynamic strings use the correct locale
+    await i18n.load(i18n.locale);
 
     initializeCollections();
     initCarousel();
