@@ -448,6 +448,22 @@ async function loadRecordGallery(entry) {
     return fallbackImages;
 }
 
+async function loadTrailGallery(entry) {
+    const fallbackImages = splitMetaList(entry.meta.gallery_images);
+
+    try {
+        const res = await fetch(`/api/trail-images?slug=${encodeURIComponent(entry.slug)}`);
+        if (res.ok) {
+            const data = await res.json();
+            if ((data.images || []).length) {
+                return data.images;
+            }
+        }
+    } catch { /* 静默降级到 front matter */ }
+
+    return fallbackImages;
+}
+
 function sortByDateDesc(items) {
     return [...items].sort((left, right) => {
         const leftTime = Date.parse(left.meta.date || '');
@@ -502,9 +518,14 @@ async function renderEntryDetail(collectionName, entry) {
         `)
         .join('');
 
-    const extrasHtml = collectionName === 'plans'
-        ? renderPlanExtras(entry)
-        : buildRecordGalleryHtml(entry, await loadRecordGallery(entry));
+    let extrasHtml = '';
+    if (collectionName === 'plans') {
+        extrasHtml = renderPlanExtras(entry);
+    } else if (collectionName === 'trails') {
+        extrasHtml = buildRecordGalleryHtml(entry, await loadTrailGallery(entry));
+    } else {
+        extrasHtml = buildRecordGalleryHtml(entry, await loadRecordGallery(entry));
+    }
 
     detailEl.classList.remove('detail-loading');
     detailEl.innerHTML = `
