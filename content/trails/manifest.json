@@ -1,6 +1,10 @@
 {
   "items": [
     {
+      "slug": "jiankou-great-wall",
+      "path": "content/trails/jiankou-great-wall/index.md"
+    },
+    {
       "slug": "great-wall-mutianyu",
       "path": "content/trails/great-wall-mutianyu/index.md"
     }
