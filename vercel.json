@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/volunteers.js": {
+      "includeFiles": "image/volunteers/**"
+    },
+    "api/record-images.js": {
+      "includeFiles": "content/records/**"
+    },
+    "api/trail-images.js": {
+      "includeFiles": "content/trails/**"
+    }
+  }
+}

@@ -70,6 +70,22 @@ function serveRecordImages(req, res) {
     res.end(JSON.stringify({ images }));
 }
 
+function serveTrailImages(req, res) {
+    const requestUrl = new URL(req.url, `http://localhost:${PORT}`);
+    const slug = (requestUrl.searchParams.get('slug') || '').replace(/[^a-zA-Z0-9-_]/g, '');
+
+    if (!slug) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Missing slug' }));
+        return;
+    }
+
+    const dir = path.join(ROOT, 'content', 'trails', slug, 'images');
+    const images = listImages(dir, `content/trails/${slug}/images`);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ images }));
+}
+
 function serveFile(urlPath, res) {
     const decoded = decodeURIComponent(urlPath);
     const filePath = path.join(ROOT, decoded === '/' ? 'index.html' : decoded);
@@ -93,11 +109,15 @@ http.createServer((req, res) => {
         serveApi(res);
     } else if (urlPath === '/api/record-images') {
         serveRecordImages(req, res);
+    } else if (urlPath === '/api/trail-images') {
+        serveTrailImages(req, res);
     } else {
         serveFile(urlPath, res);
     }
 }).listen(PORT, () => {
     console.log(`\n  AQUAFLOW 本地服务已启动`);
     console.log(`  访问地址：http://localhost:${PORT}\n`);
-    console.log(`  志愿者图片放入 image/volunteers/，记录图片放入 content/records/<slug>/images/ 后刷新页面即可。\n`);
+    console.log(`  志愿者图片放入 image/volunteers/`);
+    console.log(`  记录图片放入 content/records/<slug>/images/`);
+    console.log(`  路线图片放入 content/trails/<slug>/images/ 后刷新页面即可。\n`);
 });
