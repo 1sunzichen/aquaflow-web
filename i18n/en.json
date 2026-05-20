@@ -149,5 +149,26 @@
   "guide.message-label": "Anything else?",
   "guide.message-placeholder": "Special requirements, fitness level, questions...",
   "guide.submit": "Send Inquiry",
-  "guide.wechat-title": "Or contact us directly on WeChat"
+  "guide.wechat-title": "Or contact us directly on WeChat",
+
+  "nav.support": "Support",
+  "home.btn-support": "Support Us",
+
+  "support.eyebrow": "Support Us",
+  "support.h2": "Help every supply run happen reliably",
+  "support.period-label": "This Period's Goal",
+  "support.raised-label": "Raised",
+  "support.goal-label": "Goal",
+  "support.loading": "Loading...",
+  "support.afdian-btn": "Support us on Afdian",
+  "support.afdian-note": "All contributions go directly to supplies and transport. Every expense is listed in the ledger below.",
+  "support.tier-once": "time",
+  "support.tier-btn": "Support this tier",
+  "support.ledger-eyebrow": "Expense Ledger",
+  "support.ledger-h3": "Every expense is publicly recorded",
+  "support.col-date": "Date",
+  "support.col-item": "Item",
+  "support.col-amount": "Amount (CNY)",
+  "support.col-note": "Note",
+  "support.col-total": "Total"
 }

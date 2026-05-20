@@ -1,0 +1,61 @@
+{
+  "period": "2026年5月",
+  "goal": 500,
+  "raised": 0,
+  "currency": "CNY",
+  "afdian_url": "https://afdian.com/a/aquaflow",
+  "tiers": [
+    {
+      "name": "一次补给",
+      "amount": 20,
+      "desc": "支持一次补给行动的部分物资费用。每瓶水背后都有真实的路程。"
+    },
+    {
+      "name": "稳定支持者",
+      "amount": 50,
+      "desc": "覆盖我们每月出发的水和交通基本开销，让行动持续发生。"
+    },
+    {
+      "name": "深度同行",
+      "amount": 100,
+      "desc": "帮助我们维持更长周期的行动计划，留下更完整的城市记录。"
+    }
+  ],
+  "ledger": [
+    {
+      "date": "2026-05-10",
+      "type": "expense",
+      "item": "矿泉水 550ml × 24 瓶 × 3 箱",
+      "amount": -108,
+      "note": "农夫山泉"
+    },
+    {
+      "date": "2026-05-10",
+      "type": "expense",
+      "item": "交通费（公交 + 地铁）",
+      "amount": -18,
+      "note": ""
+    },
+    {
+      "date": "2026-05-03",
+      "type": "expense",
+      "item": "矿泉水 550ml × 24 瓶 × 2 箱",
+      "amount": -72,
+      "note": "农夫山泉"
+    },
+    {
+      "date": "2026-05-03",
+      "type": "expense",
+      "item": "一次性纸杯 100 个",
+      "amount": -12,
+      "note": ""
+    },
+    {
+      "date": "2026-05-03",
+      "type": "expense",
+      "item": "交通费（公交 + 地铁）",
+      "amount": -16,
+      "note": ""
+    }
+  ]
+}

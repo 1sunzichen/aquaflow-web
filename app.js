@@ -817,6 +817,81 @@ async function initVolunteerGallery() {
     prepareScrollReveal(galleryEl);
 }
 
+// ── Support / Funding ────────────────────────────────────────────────────────
+
+async function loadFunding() {
+    try {
+        const res = await fetch('content/funding.json');
+        if (!res.ok) throw new Error('funding.json not found');
+        const data = await res.json();
+        renderFunding(data);
+    } catch (e) {
+        console.error('funding load error:', e);
+    }
+}
+
+function renderFunding(data) {
+    const raised = data.raised || 0;
+    const goal = data.goal || 1;
+    const pct = Math.min(100, Math.round(raised / goal * 100));
+
+    const periodEl = document.getElementById('support-period-name');
+    if (periodEl) periodEl.textContent = data.period || '';
+
+    const fillEl = document.getElementById('support-progress-fill');
+    if (fillEl) setTimeout(() => { fillEl.style.width = pct + '%'; }, 80);
+
+    const raisedEl = document.getElementById('support-raised');
+    if (raisedEl) raisedEl.textContent = '¥' + raised;
+
+    const goalEl = document.getElementById('support-goal');
+    if (goalEl) goalEl.textContent = '¥' + goal;
+
+    const pctEl = document.getElementById('support-pct');
+    if (pctEl) pctEl.textContent = pct + '%';
+
+    const afdianBtn = document.getElementById('support-afdian-btn');
+    if (afdianBtn && data.afdian_url) afdianBtn.href = data.afdian_url;
+
+    const tiersEl = document.getElementById('support-tiers');
+    if (tiersEl && (data.tiers || []).length) {
+        tiersEl.innerHTML = data.tiers.map(tier => `
+            <div class="support-tier-card">
+                <p class="support-tier-name">${escapeHtml(tier.name)}</p>
+                <p class="support-tier-amount">¥${tier.amount}<span> / ${i18n.t('support.tier-once')}</span></p>
+                <p class="support-tier-desc">${escapeHtml(tier.desc)}</p>
+                <a href="${escapeHtml(data.afdian_url || '#')}" target="_blank" rel="noreferrer" class="support-afdian-btn" style="justify-content: center; margin-top: 0.75rem; padding: 0.6rem 1.2rem; font-size: 0.9rem;">
+                    ${i18n.t('support.tier-btn')}
+                </a>
+            </div>
+        `).join('');
+    }
+
+    const ledgerBody = document.getElementById('support-ledger-body');
+    if (ledgerBody && (data.ledger || []).length) {
+        let total = 0;
+        ledgerBody.innerHTML = data.ledger.map(row => {
+            total += row.amount;
+            const isIncome = row.amount > 0;
+            const amtStr = (isIncome ? '+' : '') + row.amount;
+            return `
+                <tr class="${isIncome ? 'ledger-income' : 'ledger-expense'}">
+                    <td>${escapeHtml(row.date)}</td>
+                    <td>${escapeHtml(row.item)}</td>
+                    <td>${escapeHtml(amtStr)}</td>
+                    <td>${escapeHtml(row.note || '')}</td>
+                </tr>
+            `;
+        }).join('');
+
+        const totalEl = document.getElementById('support-ledger-total');
+        if (totalEl) {
+            totalEl.textContent = (total > 0 ? '+' : '') + total;
+            totalEl.className = 'ledger-total-amount ' + (total >= 0 ? 'ledger-income-total' : '');
+        }
+    }
+}
+
 window.addEventListener('DOMContentLoaded', async () => {
     updateTime();
     setInterval(updateTime, 1000 * 30);
@@ -833,5 +908,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     initializeCollections();
     initCarousel();
     initVolunteerGallery();
+    loadFunding();
     prepareScrollReveal(document);
 });

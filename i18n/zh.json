@@ -149,5 +149,26 @@
   "guide.message-label": "其他说明",
   "guide.message-placeholder": "特殊需求、体能情况、问题...",
   "guide.submit": "提交咨询",
-  "guide.wechat-title": "或直接通过微信联系"
+  "guide.wechat-title": "或直接通过微信联系",
+
+  "nav.support": "支持",
+  "home.btn-support": "支持我们",
+
+  "support.eyebrow": "支持我们",
+  "support.h2": "让每一次补给行动都能稳定发生",
+  "support.period-label": "本期目标",
+  "support.raised-label": "已筹",
+  "support.goal-label": "目标",
+  "support.loading": "正在加载...",
+  "support.afdian-btn": "在爱发电支持我们",
+  "support.afdian-note": "支持将直接用于行动物资和交通开销，每一笔都会在下方账单中公开。",
+  "support.tier-once": "次",
+  "support.tier-btn": "支持这个档位",
+  "support.ledger-eyebrow": "物资账单",
+  "support.ledger-h3": "每一笔支出都会公开记录",
+  "support.col-date": "日期",
+  "support.col-item": "项目",
+  "support.col-amount": "金额（元）",
+  "support.col-note": "备注",
+  "support.col-total": "合计"
 }

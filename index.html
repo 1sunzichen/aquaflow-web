@@ -19,6 +19,7 @@
             <a href="#" onclick="switchModule('module-record')" data-i18n="nav.record">记录</a>
             <a href="#" onclick="switchModule('module-volunteers')" data-i18n="nav.volunteers">志愿者</a>
             <a href="#" onclick="switchModule('module-trails')" class="active" data-i18n="nav.trails">徒步路线</a>
+            <a href="#" onclick="switchModule('module-support')" data-i18n="nav.support">支持</a>
             <a href="#" onclick="showModal('modal-access')" data-i18n="nav.contact">联系</a>
             <button type="button" class="lang-switch" onclick="toggleLang()" data-i18n="lang.switch">EN</button>
         </div>
@@ -34,6 +35,7 @@
                     <div class="hero-actions">
                         <button type="button" class="primary-btn" onclick="switchModule('module-plan')" data-i18n="home.btn-plans">查看近期计划</button>
                         <button type="button" class="secondary-btn" onclick="switchModule('module-record')" data-i18n="home.btn-records">查看行动记录</button>
+                        <button type="button" class="support-hero-btn" onclick="switchModule('module-support')" data-i18n="home.btn-support">支持我们</button>
                     </div>
                 </div>
                 <div class="hero-panel">
@@ -178,6 +180,68 @@
                 <article class="content-detail">
                     <div id="trails-detail" class="detail-panel detail-loading" data-i18n="trails.detail-loading">正在读取路线内容...</div>
                 </article>
+            </div>
+        </section>
+        <section id="module-support" class="module">
+            <div class="section-heading">
+                <p class="eyebrow" data-i18n="support.eyebrow">支持我们</p>
+                <h2 data-i18n="support.h2">让每一次补给行动都能稳定发生</h2>
+            </div>
+
+            <div class="support-period-card">
+                <div class="support-period-header">
+                    <span class="support-period-label" data-i18n="support.period-label">本期目标</span>
+                    <span id="support-period-name" class="support-period-name">加载中...</span>
+                </div>
+                <div class="support-progress-wrap">
+                    <div class="support-progress-fill" id="support-progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="support-progress-stats">
+                    <span class="support-stat-raised"><span data-i18n="support.raised-label">已筹</span> <strong id="support-raised">¥0</strong></span>
+                    <span class="support-stat-pct" id="support-pct">0%</span>
+                    <span class="support-stat-goal"><span data-i18n="support.goal-label">目标</span> <strong id="support-goal">¥500</strong></span>
+                </div>
+            </div>
+
+            <div class="support-tiers" id="support-tiers">
+                <div class="content-empty" data-i18n="support.loading">正在加载...</div>
+            </div>
+
+            <div class="support-afdian-wrap">
+                <a id="support-afdian-btn" href="https://afdian.com/@aquaflow" target="_blank" rel="noreferrer" class="support-afdian-btn">
+                    <span class="support-heart">♥</span>
+                    <span data-i18n="support.afdian-btn">在爱发电支持我们</span>
+                </a>
+                <p class="support-afdian-note" data-i18n="support.afdian-note">支持将直接用于行动物资和交通开销，每一笔都会在下方账单中公开。</p>
+            </div>
+
+            <div class="support-ledger">
+                <div class="support-ledger-header">
+                    <p class="eyebrow" data-i18n="support.ledger-eyebrow">物资账单</p>
+                    <h3 data-i18n="support.ledger-h3">每一笔支出都会公开记录</h3>
+                </div>
+                <div class="ledger-table-wrap">
+                    <table class="ledger-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="support.col-date">日期</th>
+                                <th data-i18n="support.col-item">项目</th>
+                                <th data-i18n="support.col-amount">金额（元）</th>
+                                <th data-i18n="support.col-note">备注</th>
+                            </tr>
+                        </thead>
+                        <tbody id="support-ledger-body">
+                            <tr><td colspan="4" class="content-empty" data-i18n="support.loading">正在加载...</td></tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="ledger-total-row">
+                                <td colspan="2" data-i18n="support.col-total">合计</td>
+                                <td id="support-ledger-total" class="ledger-total-amount">¥0</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </section>
     </main>
