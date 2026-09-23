@@ -850,9 +850,6 @@ function renderFunding(data) {
     const pctEl = document.getElementById('support-pct');
     if (pctEl) pctEl.textContent = pct + '%';
 
-    const afdianBtn = document.getElementById('support-afdian-btn');
-    if (afdianBtn && data.afdian_url) afdianBtn.href = data.afdian_url;
-
     const tiersEl = document.getElementById('support-tiers');
     if (tiersEl && (data.tiers || []).length) {
         tiersEl.innerHTML = data.tiers.map(tier => `
@@ -860,7 +857,7 @@ function renderFunding(data) {
                 <p class="support-tier-name">${escapeHtml(tier.name)}</p>
                 <p class="support-tier-amount">¥${tier.amount}<span> / ${i18n.t('support.tier-once')}</span></p>
                 <p class="support-tier-desc">${escapeHtml(tier.desc)}</p>
-                <a href="${escapeHtml(data.afdian_url || '#')}" target="_blank" rel="noreferrer" class="support-afdian-btn" style="justify-content: center; margin-top: 0.75rem; padding: 0.6rem 1.2rem; font-size: 0.9rem;">
+                <a href="#support-payment" class="support-payment-btn" style="justify-content: center; margin-top: 0.75rem; padding: 0.6rem 1.2rem; font-size: 0.9rem;">
                     ${i18n.t('support.tier-btn')}
                 </a>
             </div>

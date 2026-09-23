@@ -1219,12 +1219,21 @@ textarea:focus {
     flex: 1;
 }
 
-.support-afdian-wrap {
+.support-payment {
     text-align: center;
     margin-bottom: 2.5rem;
+    scroll-margin-top: 6rem;
 }
 
-.support-afdian-btn {
+.support-payment-image {
+    display: block;
+    width: min(100%, 360px);
+    height: auto;
+    margin: 1rem auto;
+    border-radius: 16px;
+}
+
+.support-payment-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
@@ -1240,16 +1249,12 @@ textarea:focus {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.support-afdian-btn:hover {
+.support-payment-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 18px 40px rgba(239, 68, 68, 0.36);
 }
 
-.support-heart {
-    font-size: 1.1rem;
-}
-
-.support-afdian-note {
+.support-payment-note {
     margin-top: 0.9rem;
     font-size: 0.82rem;
     color: var(--muted-color);

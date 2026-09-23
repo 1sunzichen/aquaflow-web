@@ -3,7 +3,6 @@
   "goal": 500,
   "raised": 0,
   "currency": "CNY",
-  "afdian_url": "https://afdian.com/a/aquaflow",
   "tiers": [
     {
       "name": "一次补给",
