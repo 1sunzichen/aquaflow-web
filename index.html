@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aquaflow 流动补给：和我们一起为户外劳动者及有需要的人送上一瓶饮用水。查看发水计划、行动记录，报名参与志愿行动。">
     <title>AQUAFLOW | 城市补给行动</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,12 +14,12 @@
             <span class="brand-subtitle" data-i18n="brand.subtitle">城市补给行动</span>
         </div>
         <div class="nav-links">
-            <a href="#" onclick="switchModule('module-home')" data-i18n="nav.home">首页</a>
+            <a href="#" onclick="switchModule('module-home')" class="active" data-i18n="nav.home">首页</a>
             <a href="#" onclick="switchModule('module-philosophy')" data-i18n="nav.philosophy">理念</a>
             <a href="#" onclick="switchModule('module-plan')" data-i18n="nav.plan">计划</a>
             <a href="#" onclick="switchModule('module-record')" data-i18n="nav.record">记录</a>
             <a href="#" onclick="switchModule('module-volunteers')" data-i18n="nav.volunteers">志愿者</a>
-            <a href="#" onclick="switchModule('module-trails')" class="active" data-i18n="nav.trails">徒步路线</a>
+            <a href="#" onclick="switchModule('module-trails')" data-i18n="nav.trails">徒步路线</a>
             <a href="#" onclick="switchModule('module-support')" data-i18n="nav.support">支持</a>
             <a href="#" onclick="showModal('modal-access')" data-i18n="nav.contact">联系</a>
             <button type="button" class="lang-switch" onclick="toggleLang()" data-i18n="lang.switch">EN</button>
@@ -26,14 +27,14 @@
     </nav>
 
     <main id="app-container">
-        <section id="module-home" class="module">
+        <section id="module-home" class="module active">
             <header class="hero">
                 <div class="hero-copy">
                     <p class="eyebrow" data-i18n="home.eyebrow">让善意更稳定地抵达现场</p>
-                    <h1 data-i18n="home.h1">Aquaflow 希望把每一次补给行动，做成清晰、可持续、能被看懂的公共记录。</h1>
-                    <p class="hero-text" data-i18n="home.hero-text">这里会持续更新近期计划、行动记录和联系方式。计划与记录都通过 Markdown 文档维护，每一期都有自己的独立文件夹，方便沉淀文字、图片与路线资料。</p>
+                    <h1 data-i18n="home.h1">一起出门走走，把一瓶水递到需要的人手里。</h1>
+                    <p class="hero-text" data-i18n="home.hero-text">Aquaflow 和志愿者一起走进公园、街道和工作现场，为户外劳动者及有需要的人送上饮用水。一瓶水，一句问候，一点心意，欢迎你和我们一起参与发水行动。</p>
                     <div class="hero-actions">
-                        <button type="button" class="primary-btn" onclick="switchModule('module-plan')" data-i18n="home.btn-plans">查看近期计划</button>
+                        <button type="button" class="primary-btn" onclick="switchModule('module-plan')" data-i18n="home.btn-plans">查看发水计划</button>
                         <button type="button" class="secondary-btn" onclick="switchModule('module-record')" data-i18n="home.btn-records">查看行动记录</button>
                         <button type="button" class="support-hero-btn" onclick="switchModule('module-support')" data-i18n="home.btn-support">支持我们</button>
                     </div>
@@ -44,8 +45,11 @@
                         <strong id="system-time">加载中...</strong>
                     </div>
                     <div class="status-card">
-                        <span class="status-label" data-i18n="home.status.maintenance">内容维护方式</span>
-                        <p data-i18n="home.status.maintenance-text">每一期一个目录，目录中包含 <code>index.md</code> 与 <code>images/</code>。</p>
+                        <span class="status-label" data-i18n="home.status.join">一起参与发水</span>
+                        <p data-i18n="home.status.join-text">不需要活动经验。带上一点时间和心意，和我们一起把饮用水送到有需要的人手中。</p>
+                        <div class="hero-actions">
+                            <button type="button" class="primary-btn" onclick="showModal('modal-volunteer')" data-i18n="home.btn-join">报名参与</button>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -68,15 +72,15 @@
             <section class="summary-grid">
                 <article class="summary-card">
                     <h2 data-i18n="home.card1.title">我们在做什么</h2>
-                    <p data-i18n="home.card1.text">面向城市建设者、户外劳动者和现场工作者，提供低干预、轻量化的饮水与补给支持。</p>
+                    <p data-i18n="home.card1.text">为环卫工人、园林工作者、城市建设者及有需要的人送上饮用水，尊重对方意愿，不打扰工作。</p>
                 </article>
                 <article class="summary-card clickable" onclick="switchModule('module-plan')">
-                    <h2 data-i18n="home.card2.title">如何看计划</h2>
-                    <p data-i18n="home.card2.text">计划页会列出即将执行的补给行动，包含时间、起点、目标区域和本次准备内容。</p>
+                    <h2 data-i18n="home.card2.title">一起参加发水</h2>
+                    <p data-i18n="home.card2.text">查看每次行动的时间、集合地点和物资安排，找到适合自己的场次，和我们一起出发。</p>
                 </article>
                 <article class="summary-card clickable" onclick="switchModule('module-record')">
-                    <h2 data-i18n="home.card3.title">如何看记录</h2>
-                    <p data-i18n="home.card3.text">记录页会沉淀路线观察、执行反馈和图片资料，帮助每一次行动逐步改进。</p>
+                    <h2 data-i18n="home.card3.title">看看行动现场</h2>
+                    <p data-i18n="home.card3.text">从真实的照片和文字里，了解每一次发水的相遇、收获和改进，让小小的善意持续发生。</p>
                 </article>
             </section>
         </section>
@@ -159,7 +163,7 @@
             </div>
         </section>
 
-        <section id="module-trails" class="module active">
+        <section id="module-trails" class="module">
             <div class="section-heading">
                 <p class="eyebrow" data-i18n="trails.eyebrow">徒步路线</p>
                 <h2 data-i18n="trails.h2">发现中国最美徒步路线，专为国际旅行者整理的英文攻略。</h2>

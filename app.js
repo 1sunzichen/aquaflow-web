@@ -1,14 +1,18 @@
 // ── i18n ─────────────────────────────────────────────────────────────────────
 
+// The old `locale` key also stored the automatic English default. Only remember
+// explicit choices under the new key so returning visitors start in Chinese too.
+const LANGUAGE_PREFERENCE_KEY = 'aquaflow.preferredLocale';
+
 const i18n = {
-    locale: localStorage.getItem('locale') || 'en',
+    locale: localStorage.getItem(LANGUAGE_PREFERENCE_KEY) === 'en' ? 'en' : 'zh',
     data: {},
 
-    async load(locale) {
+    async load(locale, remember = false) {
         const res = await fetch(`i18n/${locale}.json`);
         this.data = await res.json();
         this.locale = locale;
-        localStorage.setItem('locale', locale);
+        if (remember) localStorage.setItem(LANGUAGE_PREFERENCE_KEY, locale);
         document.documentElement.lang = locale === 'zh' ? 'zh-CN' : 'en';
         this.apply();
     },
@@ -45,7 +49,7 @@ function updateCollectionStrings() {
 }
 
 function toggleLang() {
-    i18n.load(i18n.locale === 'zh' ? 'en' : 'zh');
+    i18n.load(i18n.locale === 'zh' ? 'en' : 'zh', true);
 }
 
 // ── Content Collections ───────────────────────────────────────────────────────
